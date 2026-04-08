@@ -1,4 +1,6 @@
-const API_KEY = "DEMO_KEY"; // Replace with your key later
+const API_KEY = "DEMO_KEY";
+
+let allData = []; // store fetched data
 
 async function getImage() {
   const date = document.getElementById("date").value;
@@ -9,9 +11,6 @@ async function getImage() {
   }
 
   document.getElementById("loading").innerText = "Loading...";
-  document.getElementById("title").innerText = "";
-  document.getElementById("desc").innerText = "";
-  document.getElementById("img").style.display = "none";
 
   try {
     const response = await fetch(
@@ -20,32 +19,88 @@ async function getImage() {
 
     const data = await response.json();
 
-    console.log(data); // debugging
-
-    // Handle API error
     if (data.error) {
       alert(data.error.message);
-      document.getElementById("loading").innerText = "";
       return;
     }
 
-    document.getElementById("title").innerText = data.title;
-    document.getElementById("desc").innerText = data.explanation;
-
-    // Handle image/video
-    if (data.media_type === "image") {
-      const img = document.getElementById("img");
-      img.src = data.url;
-      img.style.display = "block";
-    } else {
-      document.getElementById("desc").innerText =
-        "This date contains a video. Try another date!";
-    }
+    allData.push(data); // store data
+    displayData(allData);
 
   } catch (error) {
-    alert("Error fetching data. Check internet or API key.");
+    alert("Error fetching data");
     console.error(error);
   }
 
   document.getElementById("loading").innerText = "";
+}
+
+// DISPLAY FUNCTION
+function displayData(dataArray) {
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
+
+  dataArray.map((item, index) => {
+    const div = document.createElement("div");
+    div.classList.add("card");
+
+    div.innerHTML = `
+      <h3>${item.title}</h3>
+      ${
+        item.media_type === "image"
+          ? `<img src="${item.url}" />`
+          : `<p>🎥 Video content</p>`
+      }
+      <p>${item.explanation.substring(0, 100)}...</p>
+      <button onclick="likePost(${index})">❤️ Like</button>
+    `;
+
+    gallery.appendChild(div);
+  });
+}
+
+// SEARCH (filter + includes)
+function searchData() {
+  const keyword = document.getElementById("searchInput").value.toLowerCase();
+
+  const filtered = allData.filter(item =>
+    item.title.toLowerCase().includes(keyword) ||
+    item.explanation.toLowerCase().includes(keyword)
+  );
+
+  displayData(filtered);
+}
+
+// FILTER
+function filterData(type) {
+  if (type === "all") {
+    displayData(allData);
+    return;
+  }
+
+  const filtered = allData.filter(item => item.media_type === type);
+  displayData(filtered);
+}
+
+// SORT
+function sortData(order) {
+  let sorted = [...allData];
+
+  if (order === "az") {
+    sorted.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (order === "za") {
+    sorted.sort((a, b) => b.title.localeCompare(a.title));
+  }
+
+  displayData(sorted);
+}
+
+// LIKE BUTTON
+function likePost(index) {
+  alert("❤️ You liked: " + allData[index].title);
+}
+
+// DARK MODE
+function toggleTheme() {
+  document.body.classList.toggle("light");
 }

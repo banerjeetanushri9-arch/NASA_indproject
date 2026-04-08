@@ -3,8 +3,6 @@
 <head>
   <title>Cosmic Gallery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Link CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,19 +10,38 @@
 
   <h1>🌌 Cosmic Gallery</h1>
 
-  <!-- Date Picker -->
+  <!-- Controls -->
   <input type="date" id="date" min="1995-06-16">
-  <button onclick="getImage()">Search</button>
+  <button onclick="getImage()">Search by Date</button>
+
+  <br>
+
+  <!-- Search -->
+  <input type="text" id="searchInput" placeholder="Search by keyword..." oninput="searchData()">
+
+  <!-- Filter -->
+  <select onchange="filterData(this.value)">
+    <option value="all">All</option>
+    <option value="image">Images</option>
+    <option value="video">Videos</option>
+  </select>
+
+  <!-- Sort -->
+  <select onchange="sortData(this.value)">
+    <option value="">Sort</option>
+    <option value="az">A-Z</option>
+    <option value="za">Z-A</option>
+  </select>
+
+  <!-- Dark Mode -->
+  <button onclick="toggleTheme()">🌙 Toggle Mode</button>
 
   <!-- Loading -->
   <p id="loading"></p>
 
   <!-- Output -->
-  <h2 id="title"></h2>
-  <img id="img">
-  <p id="desc"></p>
+  <div id="gallery"></div>
 
-  <!-- Link JS -->
   <script src="scriptt.js"></script>
 
 </body>
