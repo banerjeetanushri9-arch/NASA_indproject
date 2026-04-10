@@ -10,47 +10,45 @@
 
   <h1>Astral Archive</h1>
 
-  <!-- Controls -->
   <input type="date" id="date" min="1995-06-16">
   <button onclick="getImage()">Search by Date</button>
 
   <br>
 
-  <!-- Search -->
-  <input type="text" id="searchInput" placeholder="Search by keyword..." oninput="searchData()">
 
-  <!-- Filter -->
-  <select onchange="filterData(this.value)">
+  <!-- <input type="text" id="searchInput" placeholder="Search by keyword..." oninput="searchData()"> --> 
+
+ 
+  <!-- <select onchange="filterData(this.value)">
     <option value="all">All</option>
     <option value="image">Images</option>
     <option value="video">Videos</option>
-  </select>
+  </select> -->
 
-  <!-- Sort -->
-  <select onchange="sortData(this.value)">
+
+  <!-- <select onchange="sortData(this.value)">
     <option value="">Sort</option>
     <option value="az">A-Z</option>
     <option value="za">Z-A</option>
-  </select>
+  </select> -->
 
-  <!-- Dark Mode -->
+  
   <button onclick="toggleTheme()">🌙 Toggle Mode</button>
 
-  <!-- Loading -->
+  
   <p id="loading"></p>
 
-  <!-- Output -->
+
   <div id="gallery"></div>
 
 <div class="container">
   
-  <!-- LEFT SIDEBAR -->
   <div id="favorites">
     <h3>❤️ Liked Images</h3>
     <ul id="favList"></ul>
   </div>
 
-  <!-- MAIN GALLERY -->
+
   <div id="gallery"></div>
 
 </div>

@@ -1,9 +1,9 @@
 const API_KEY = "bve2gkE2AI2tJztmrixinEFQ8N6FElGgYQ3hYlbB";
 
 let allData = [];
-let favorites = []; // ⭐ store liked images
+let favorites = []; 
 
-// FETCH IMAGE
+
 async function getImage() {
   const date = document.getElementById("date").value;
   const loading = document.getElementById("loading");
@@ -53,7 +53,7 @@ async function getImage() {
   }
 }
 
-// DISPLAY FUNCTION
+
 function displayData(dataArray) {
   const gallery = document.getElementById("gallery");
   gallery.innerHTML = "";
@@ -66,7 +66,7 @@ function displayData(dataArray) {
   dataArray.forEach((item, index) => {
     const div = document.createElement("div");
     div.classList.add("card");
-    div.id = `img-${index}`; // 👈 for navigation
+    div.id = `img-${index}`; 
 
     div.innerHTML = `
       <h3>${item.title}</h3>
@@ -83,11 +83,11 @@ function displayData(dataArray) {
   });
 }
 
-// ❤️ LIKE FUNCTION
+
 function likePost(index) {
   const item = allData[index];
 
-  // prevent duplicates
+
   if (favorites.some(fav => fav.date === item.date)) {
     alert("Already in favorites!");
     return;
@@ -99,7 +99,7 @@ function likePost(index) {
   alert("❤️ Added to favorites: " + item.title);
 }
 
-// ⭐ UPDATE SIDEBAR
+
 function updateFavorites() {
   const favList = document.getElementById("favList");
   favList.innerHTML = "";
@@ -108,21 +108,21 @@ function updateFavorites() {
     const li = document.createElement("li");
     li.innerText = item.title;
 
-    // click to show image
+  
     li.onclick = () => showFavorite(index);
 
     favList.appendChild(li);
   });
 }
 
-// 👆 SHOW SELECTED FAVORITE
+
 function showFavorite(index) {
   const item = favorites[index];
 
-  displayData([item]); // show only selected
+  displayData([item]); 
 }
 
-// SEARCH
+
 let searchTimeout;
 
 function searchData() {
@@ -142,7 +142,7 @@ function searchData() {
   }, 300);
 }
 
-// FILTER
+
 function filterData(type) {
   if (type === "all") {
     displayData(allData);
@@ -153,7 +153,7 @@ function filterData(type) {
   displayData(filtered);
 }
 
-// SORT
+
 function sortData(order) {
   let sorted = [...allData];
 
@@ -166,7 +166,7 @@ function sortData(order) {
   displayData(sorted);
 }
 
-// DARK MODE
+
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
