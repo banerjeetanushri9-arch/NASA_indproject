@@ -1,6 +1,7 @@
 const API_KEY = "bve2gkE2AI2tJztmrixinEFQ8N6FElGgYQ3hYlbB";
 
 let allData = [];
+let favorites = []; // ⭐ store liked images
 
 // FETCH IMAGE
 async function getImage() {
@@ -13,7 +14,6 @@ async function getImage() {
     return;
   }
 
-  // Prevent duplicate fetch
   if (allData.some(item => item.date === date)) {
     alert("Data already fetched for this date!");
     return;
@@ -27,18 +27,16 @@ async function getImage() {
       `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=${date}`
     );
 
-    // 👇 Get raw response first
     const text = await response.text();
 
     let data;
 
     try {
-      data = JSON.parse(text); // safe parse
-    } catch (err) {
-      throw new Error("Server returned invalid response (not JSON)");
+      data = JSON.parse(text);
+    } catch {
+      throw new Error("Invalid server response");
     }
 
-    // Handle API errors
     if (!response.ok || data.error) {
       throw new Error(data.error?.message || "API Error");
     }
@@ -48,9 +46,9 @@ async function getImage() {
 
   } catch (error) {
     alert("Error: " + error.message);
-    console.error("Fetch Error:", error);
+    console.error(error);
   } finally {
-    loading.innerText = ""; // always stop loading
+    loading.innerText = "";
     if (btn) btn.disabled = false;
   }
 }
@@ -68,15 +66,16 @@ function displayData(dataArray) {
   dataArray.forEach((item, index) => {
     const div = document.createElement("div");
     div.classList.add("card");
+    div.id = `img-${index}`; // 👈 for navigation
 
     div.innerHTML = `
       <h3>${item.title}</h3>
       ${
         item.media_type === "image"
           ? `<img src="${item.url}" alt="${item.title}" />`
-          : `<p>🎥 Video content</p>`
+          : `<iframe src="${item.url}" frameborder="0" allowfullscreen></iframe>`
       }
-      <p>${item.explanation.substring(0, 120)}...</p>
+      <p>${item.explanation ? item.explanation.substring(0, 120) : ""}...</p>
       <button onclick="likePost(${index})">❤️ Like</button>
     `;
 
@@ -84,7 +83,46 @@ function displayData(dataArray) {
   });
 }
 
-// SEARCH (Debounced)
+// ❤️ LIKE FUNCTION
+function likePost(index) {
+  const item = allData[index];
+
+  // prevent duplicates
+  if (favorites.some(fav => fav.date === item.date)) {
+    alert("Already in favorites!");
+    return;
+  }
+
+  favorites.push(item);
+  updateFavorites();
+
+  alert("❤️ Added to favorites: " + item.title);
+}
+
+// ⭐ UPDATE SIDEBAR
+function updateFavorites() {
+  const favList = document.getElementById("favList");
+  favList.innerHTML = "";
+
+  favorites.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.innerText = item.title;
+
+    // click to show image
+    li.onclick = () => showFavorite(index);
+
+    favList.appendChild(li);
+  });
+}
+
+// 👆 SHOW SELECTED FAVORITE
+function showFavorite(index) {
+  const item = favorites[index];
+
+  displayData([item]); // show only selected
+}
+
+// SEARCH
 let searchTimeout;
 
 function searchData() {
@@ -126,11 +164,6 @@ function sortData(order) {
   }
 
   displayData(sorted);
-}
-
-// LIKE
-function likePost(index) {
-  alert("❤️ You liked: " + allData[index].title);
 }
 
 // DARK MODE
