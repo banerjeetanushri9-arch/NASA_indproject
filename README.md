@@ -1,60 +1,95 @@
-# 🌌 NASA APOD Viewer (Astronomy Picture of the Day)
+# 🌌 AstroVista – NASA APOD Explorer
 
-A visually stunning, space-themed web application that allows users to explore NASA’s **Astronomy Picture of the Day (APOD)**.  
+AstroVista is a modern, space-themed web application that allows users to explore NASA’s **Astronomy Picture of the Day (APOD)** by searching images and videos based on a specific **month and year**.
 
-Users can select any date to discover what the universe looked like on that day — including their birthday 🎂.
+Discover the beauty of the universe 🌠 — one month at a time.
 
 ---
 
 ## ✨ Features
 
-### Date-based Search
-- Select any date using a date picker  
-- Fetch historical astronomy images  
+### 📅 Month-Based Search
+
+* Search using format: **April 2020**
+* Fetches all APOD entries for that entire month
+* Simple and powerful browsing experience
 
 ---
 
-###  NASA APOD Integration
-- Uses NASA’s official API  
-- Displays:
-  - Image  
-  - Title  
-  - Explanation  
+### ❤️ Favorites System
+
+* Like your favorite images/videos
+* Saved in a **fixed sidebar**
+* Click to quickly view them again
 
 ---
 
-### Fullscreen Image Modal
-- Click image to view in fullscreen  
-- Immersive viewing experience  
+### 📌 Fixed Favorites Sidebar
+
+* Always visible on the right side
+* Smooth navigation between liked items
 
 ---
 
-### HD Image Support
-- “View HD” button for high-resolution images  
+### 🌙 Dark / Light Mode
+
+* Toggle between themes
+* Space-themed dark UI by default
 
 ---
 
-### Space-Themed UI
-- Dark cosmic background  
-- Glowing neon elements  
-- Minimal and modern design  
+### 🎨 Modern UI
+
+* Clean card layout
+* Responsive design
+* Smooth and minimal user experience
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- HTML
-- CSS
-- JavaScript 
-- NASA APOD API
-
----
-
-## API Used
-
-- NASA Open API  
-👉 https://api.nasa.gov/
+* HTML
+* CSS
+* JavaScript
+* NASA APOD API
 
 ---
 
+## 🔑 API Used
 
+* NASA Astronomy Picture of the Day API
+  👉 https://api.nasa.gov/planetary/apod
+
+---
+
+## 🚀 How to Use
+
+1. Enter a month and year (e.g., **April 2020**)
+2. Click **Search**
+3. Browse all images/videos from that month
+4. Click ❤️ to save favorites
+5. Access favorites from the sidebar
+
+---
+
+## ⚠️ Note
+
+* Input format must be: **Full Month Name + Year**
+
+  * Example: `March 2021`
+* Short formats like `Mar 2021` are not supported
+
+---
+
+## 🌠 Future Enhancements
+
+* 📅 Dropdown month picker
+* 💾 Save favorites using localStorage
+* 🎥 Video-only search option
+* 📱 Improved mobile responsiveness
+
+---
+
+## 👩‍💻 Author
+
+Developed by **Tanushri** 💫
